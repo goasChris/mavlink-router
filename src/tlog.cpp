@@ -101,9 +101,11 @@ void TLog::_split_logfile()
 
     // Send MAVLink packet to request all parameters
     mavlink_message_t msg;
-    mavlink_msg_param_request_list_pack(
-        SYSTEM_ID, MAV_COMP_ID_ALL, &msg,
-        _target_system_id, MAV_COMP_ID_ALL);
+    mavlink_msg_param_request_list_pack(SYSTEM_ID,
+                                        MAV_COMP_ID_ALL,
+                                        &msg,
+                                        _target_system_id,
+                                        MAV_COMP_ID_ALL);
 
     // Send the MAVLink packet
     msg_send(&msg);
@@ -126,9 +128,9 @@ void TLog::_check_and_split_logfile()
         return;
     }
 
-    log_info("Attempting to split file, current size: %ld, max size: %ld",
-             file_stat.st_size,
-             _max_tlog_file_size);
+    log_info("Attempting to split file, current size: %lld, max size: %lld",
+             (long long)file_stat.st_size,
+             (long long)_max_tlog_file_size);
     _split_logfile();
 }
 
